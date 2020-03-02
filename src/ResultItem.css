@@ -1,6 +1,16 @@
 .result {
     border: black 2px solid;
     display: flex;
+    flex-direction: row;
     align-items: center;
     margin: 10px;
+}
+.image {
+    width: 50%
+}
+img {
+    margin: auto;
+}
+section {
+    width: 50%
 }

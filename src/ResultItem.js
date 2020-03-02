@@ -4,7 +4,13 @@ import './ResultItem.css'
 function ResultItem(props) {
     return(
         <div className="result">
-            <h2>Result</h2>
+            <div className="image"><img src={props.imgSource} alt="book" /></div>
+            <section>
+                <h2>{props.title}</h2>
+                <p>Author: {props.author}</p>
+                <p>Price: {props.price}</p>
+                <p>{props.description}</p>
+            </section>
         </div>
     )
 }
