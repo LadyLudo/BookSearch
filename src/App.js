@@ -9,7 +9,9 @@ class App extends React.Component {
     constructor() {
         super();
         this.state= {
-            UserInput: ""
+            UserInput: "",
+            printType: "all",
+            bookType: ""
         }
     }
     inputChanged = (value) => {
@@ -21,9 +23,9 @@ class App extends React.Component {
     searchAPI = () => {
         const searchTerm = this.state.UserInput
         const parsedSearch = encodeURI(searchTerm)
-        console.log(parsedSearch)
         const APIKey = "AIzaSyCUdYRv1NbX3OWaZeK9hFg2LDpfER5WJlI"
-        const url = `https://www.googleapis.com/books/v1/volumes?q=${parsedSearch}&key=${APIKey}`
+        const filter = this.state.bookType === "" ? "" : `&filter=${this.state.bookType}`
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${parsedSearch}&printType=${this.state.printType}${filter}&key=${APIKey}`
         fetch(url)
             .then(result => result.json())
             .then(result => this.displayResults(result))
@@ -34,11 +36,19 @@ class App extends React.Component {
             bookArray: results.items
         })
     }
+    handleOptionChange = (event) => {
+        console.log("changing option")
+        const { name, value} = event.target
+        console.log(value)
+        this.setState({
+            [name]: value
+        })
+    }
     render() {
         return (
         <div>
           <Header />
-          <SearchBar value={this.state.UserInput}search={this.searchAPI} inputChange={this.inputChanged}/>
+          <SearchBar optionChange= {this.handleOptionChange} bookTypeValue= {this.state.bookType}printTypeValue = {this.state.printType} value={this.state.UserInput} search={this.searchAPI} inputChange={this.inputChanged}/>
           <Results info={this.state.bookArray} />
         </div>
         );

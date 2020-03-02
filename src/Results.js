@@ -5,12 +5,11 @@ import './Results.css'
 class Results extends React.Component {
     createItems= (infoArray) => {
         const results = infoArray.map(book => {
-            console.log(book)
             return(
                 <ResultItem
                     key={book.id}
                     title={book.volumeInfo.title}
-                    author={book.volumeInfo.authors[0]}
+                    author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : "No Author Listed"}
                     price={book.saleInfo.retailPrice ? book.saleInfo.retailPrice.amount : "Not for Sale"}
                     description={book.volumeInfo.description}
                     imgSource={book.volumeInfo.imageLinks.smallThumbnail}
